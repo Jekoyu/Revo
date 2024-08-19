@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nama');
+            $table->string('nim')->unique()->nullable(); // nullable for Administrator
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->enum('role', ['Mahasiswa', 'Administrator', 'Operator'])->default('Mahasiswa');
+            $table->enum('status_verifikasi', ['Belum Diverifikasi', 'Terverifikasi'])->default('Belum Diverifikasi');
             $table->timestamps();
         });
 
